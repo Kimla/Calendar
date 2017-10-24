@@ -5,7 +5,7 @@
             <div class="day" v-for="day in dayNames">{{ day }}</div>
         </div>
         <div class="days">
-            <div class="day" v-for="day in days">
+            <div class="day" v-for="day in days" :class="{ isActive: isToday(day) }">
                 {{ getDate(day) }}
             </div>
         </div>
@@ -20,6 +20,7 @@ import startOfWeek from 'date-fns/start_of_week';
 import endOfWeek from 'date-fns/end_of_week';
 import eachDay from 'date-fns/each_day';
 import getDate from 'date-fns/get_date';
+import isToday from 'date-fns/is_today';
 
 export default {
     name: 'calendar',
@@ -56,6 +57,7 @@ export default {
         },
     },
     methods: {
+        isToday,
         getDate,
     },
 };
@@ -72,5 +74,9 @@ export default {
     padding: 30px;
     font-weight: bold;
     font-size: 18px;
+}
+.day.isActive {
+    background-color: red;
+    color: #fff;
 }
 </style>
