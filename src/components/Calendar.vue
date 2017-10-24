@@ -1,6 +1,7 @@
 <template>
     <div class="Calendar">
         <h1>Calendar</h1>
+        <h2>{{ monthName }}</h2>
         <div class="days">
             <div class="day" v-for="day in dayNames">{{ day }}</div>
         </div>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import format from 'date-fns/format';
 import getMonth from 'date-fns/get_month';
 import startOfMonth from 'date-fns/start_of_month';
 import endOfMonth from 'date-fns/end_of_month';
@@ -72,6 +74,9 @@ export default {
 
             return out;
         },
+        monthName() {
+            return format(this.activeDay, ['MMMM']);
+        },
     },
     methods: {
         changeActiveDay(day) {
@@ -85,6 +90,9 @@ export default {
 </script>
 
 <style lang="css">
+h2 {
+    text-align: center;
+}
 .days {
     display: flex;
     flex-wrap: wrap;
