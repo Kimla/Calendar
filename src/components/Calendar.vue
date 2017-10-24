@@ -5,9 +5,7 @@
             <div class="day" v-for="day in dayNames">{{ day }}</div>
         </div>
         <div class="days">
-            <div class="day" v-for="day in days" :class="{ isActive: isToday(day) }">
-                {{ getDate(day) }}
-            </div>
+            <CalendarDay v-for="day in days" :key="day.number" :day="day" @changeDay="changeActiveDay(day)"></CalendarDay>
         </div>
     </div>
 </template>
@@ -21,9 +19,14 @@ import endOfWeek from 'date-fns/end_of_week';
 import eachDay from 'date-fns/each_day';
 import getDate from 'date-fns/get_date';
 import isToday from 'date-fns/is_today';
+import isSameDay from 'date-fns/is_same_day';
+import CalendarDay from './CalendarDay';
 
 export default {
     name: 'calendar',
+    components: {
+        CalendarDay,
+    },
     data() {
         return {
             dayNames: [
@@ -35,6 +38,7 @@ export default {
                 'Saturday',
                 'Sunday',
             ],
+            activeDay: new Date(),
         };
     },
     computed: {
@@ -50,15 +54,32 @@ export default {
             return endOfWeek(lastInMonth, { weekStartsOn: 1 });
         },
         days() {
-            return eachDay(
+            const days = eachDay(
                 this.startDay,
                 this.endDay,
             );
+
+            const out = [];
+
+            for (let i = 0; i < days.length; i += 1) {
+                const date = days[i];
+                out.push({
+                    date,
+                    number: this.getDate(date),
+                    active: this.isSameDay(date, this.activeDay),
+                });
+            }
+
+            return out;
         },
     },
     methods: {
+        changeActiveDay(day) {
+            this.activeDay = day.date;
+        },
         isToday,
         getDate,
+        isSameDay,
     },
 };
 </script>
