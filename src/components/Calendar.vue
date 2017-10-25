@@ -81,7 +81,11 @@ export default {
     },
     methods: {
         changeActiveDay(day) {
-            this.activeDay = day.date;
+            if (this.isSameDay(day.date, this.activeDay)) {
+                this.activeDay = false;
+            } else {
+                this.activeDay = day.date;
+            }
         },
         isToday,
         getDate,

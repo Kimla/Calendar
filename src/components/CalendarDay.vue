@@ -10,10 +10,7 @@ export default {
     props: ['day'],
     methods: {
         clickHandler() {
-            if (this.day.active) {
-                return;
-            }
-            this.$emit('changeDay', this.day.number);
+            this.$emit('changeDay');
         },
     },
 };
