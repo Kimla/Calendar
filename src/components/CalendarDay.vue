@@ -1,5 +1,5 @@
 <template>
-    <div class="day" :class="{ isActive: day.active }" @click="clickHandler()">
+    <div class="day" :class="[{ isActive: day.active }, { isInCurrentMonth: day.isInCurrentMonth }]" @click="clickHandler()">
         {{ day.number }}
     </div>
 </template>
@@ -20,4 +20,14 @@ export default {
 </script>
 
 <style lang="css">
+.day {
+    background-color: #ddd;
+}
+.day.isInCurrentMonth {
+    background-color: #fff;
+}
+.day.isActive {
+    background-color: red;
+    color: #fff;
+}
 </style>

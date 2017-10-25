@@ -2,7 +2,7 @@
     <div class="Calendar">
         <h1>Calendar</h1>
         <h2>{{ monthName }}</h2>
-        <div class="days">
+        <div class="days top">
             <div class="day" v-for="day in dayNames">{{ day }}</div>
         </div>
         <div class="days">
@@ -68,6 +68,7 @@ export default {
                 out.push({
                     date,
                     number: this.getDate(date),
+                    isInCurrentMonth: this.month === getMonth(date),
                     active: this.isSameDay(date, this.activeDay),
                 });
             }
@@ -93,6 +94,14 @@ export default {
 h2 {
     text-align: center;
 }
+.top {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+.top .day {
+    background-color: #fff;
+    padding: 15px;
+}
 .days {
     display: flex;
     flex-wrap: wrap;
@@ -103,9 +112,5 @@ h2 {
     padding: 30px;
     font-weight: bold;
     font-size: 18px;
-}
-.day.isActive {
-    background-color: red;
-    color: #fff;
 }
 </style>
